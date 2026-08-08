@@ -2,12 +2,10 @@ import sqlite3
 from pathlib import Path
 
 
-# Ścieżka do pliku bazy danych
 DATABASE_PATH = Path(__file__).resolve().parent.parent / "tickets.db"
 
 
 def create_tickets_table() -> None:
-    """Tworzy tabelę tickets, jeżeli jeszcze nie istnieje."""
 
     with sqlite3.connect(DATABASE_PATH) as connection:
         connection.execute(
@@ -32,7 +30,6 @@ def save_ticket(
     ticket_text: str,
     analysis_result: dict[str, object],
 ) -> int:
-    """Zapisuje przeanalizowane zgłoszenie w bazie i zwraca jego ID."""
 
     with sqlite3.connect(DATABASE_PATH) as connection:
         cursor = connection.execute(
@@ -67,7 +64,6 @@ def save_ticket(
 
 
 def get_all_tickets() -> list[dict[str, object]]:
-    """Pobiera wszystkie zapisane zgłoszenia z bazy."""
 
     with sqlite3.connect(DATABASE_PATH) as connection:
         connection.row_factory = sqlite3.Row

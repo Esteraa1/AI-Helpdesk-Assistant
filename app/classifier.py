@@ -119,7 +119,6 @@ SUGGESTED_RESPONSES = {
 
 
 def load_ai_model():
-    """Ładuje model zero-shot classification."""
 
     return pipeline(
         task="zero-shot-classification",
@@ -129,7 +128,6 @@ def load_ai_model():
 
 
 def detect_category_baseline(text: str) -> str:
-    """Wykrywa kategorię na podstawie słów kluczowych."""
 
     normalized_text = text.lower()
 
@@ -142,7 +140,6 @@ def detect_category_baseline(text: str) -> str:
 
 
 def detect_priority_baseline(text: str) -> str:
-    """Wykrywa priorytet na podstawie prostych reguł."""
 
     normalized_text = text.lower()
 
@@ -188,7 +185,6 @@ def find_short_label(
     descriptions: dict[str, str],
     selected_description: str,
 ) -> str:
-    """Zamienia dokładny opis na krótką nazwę etykiety."""
 
     for short_label, description in descriptions.items():
         if description == selected_description:
@@ -201,7 +197,6 @@ def detect_category_with_ai(
     classifier,
     text: str,
 ) -> tuple[str, float]:
-    """Wykrywa kategorię za pomocą modelu zero-shot."""
 
     category_candidates = list(CATEGORY_DESCRIPTIONS.values())
 
@@ -227,7 +222,6 @@ def detect_priority_with_ai(
     classifier,
     text: str,
 ) -> tuple[str, float]:
-    """Wykrywa priorytet za pomocą modelu zero-shot."""
 
     priority_candidates = list(PRIORITY_DESCRIPTIONS.values())
 
@@ -253,7 +247,6 @@ def create_summary(
     text: str,
     maximum_length: int = 100,
 ) -> str:
-    """Skraca zgłoszenie bez używania AI."""
 
     cleaned_text = " ".join(text.split())
 
@@ -266,7 +259,6 @@ def create_summary(
 
 
 def get_suggested_response(category: str) -> str:
-    """Zwraca gotową odpowiedź dla wykrytej kategorii."""
 
     return SUGGESTED_RESPONSES[category]
 
@@ -275,7 +267,6 @@ def check_human_review(
     category_confidence: float,
     priority_confidence: float,
 ) -> bool:
-    """Sprawdza, czy zgłoszenie wymaga ręcznej weryfikacji."""
 
     category_is_uncertain = (
         category_confidence < HUMAN_REVIEW_THRESHOLD
@@ -289,7 +280,6 @@ def check_human_review(
 
 
 def analyze_ticket_baseline(text: str) -> dict[str, object]:
-    """Analizuje zgłoszenie za pomocą słów kluczowych."""
 
     category = detect_category_baseline(text)
     priority = detect_priority_baseline(text)
@@ -309,7 +299,6 @@ def analyze_ticket_with_ai(
     classifier,
     text: str,
 ) -> dict[str, object]:
-    """Analizuje zgłoszenie za pomocą modelu zero-shot."""
 
     category, category_confidence = detect_category_with_ai(
         classifier,

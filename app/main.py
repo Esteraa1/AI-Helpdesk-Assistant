@@ -19,23 +19,29 @@ from app.schemas import (
 app = FastAPI(
     title="AI Helpdesk Ticket Assistant",
     description="API for analyzing helpdesk tickets.",
-    version="0.3.0",
+    version="0.4.0",
 )
 
 
-# Tworzymy tabelę podczas uruchamiania aplikacji.
 create_tickets_table()
 
+classifier = None
 
-# Model AI jest ładowany jeden raz.
-print("Loading AI model...")
-classifier = load_ai_model()
-print("AI model loaded.")
+
+def get_classifier():
+
+    global classifier
+
+    if classifier is None:
+        print("Loading AI model...")
+        classifier = load_ai_model()
+        print("AI model loaded.")
+
+    return classifier
 
 
 @app.get("/")
 def read_root() -> dict[str, str]:
-    """Zwraca informację, że API działa."""
 
     return {
         "message": "AI Helpdesk Ticket Assistant API is running.",
@@ -50,10 +56,11 @@ def read_root() -> dict[str, str]:
 def analyze_ticket_endpoint(
     ticket: TicketRequest,
 ) -> dict[str, object]:
-    """Analizuje zgłoszenie i zapisuje wynik w bazie."""
+
+    ai_classifier = get_classifier()
 
     analysis_result = analyze_ticket_with_ai(
-        classifier,
+        ai_classifier,
         ticket.text,
     )
 
@@ -70,7 +77,6 @@ def analyze_ticket_endpoint(
     response_model=list[StoredTicketResponse],
 )
 def get_tickets_endpoint() -> list[dict[str, object]]:
-    """Zwraca historię przeanalizowanych zgłoszeń."""
 
     tickets = get_all_tickets()
 

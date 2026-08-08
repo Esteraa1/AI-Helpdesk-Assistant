@@ -9,7 +9,6 @@ def print_analysis(
     title: str,
     result: dict[str, object],
 ) -> None:
-    """Wyświetla wynik analizy w terminalu."""
 
     print(f"\n{title}")
 
@@ -21,7 +20,6 @@ def print_analysis(
 
 
 def main() -> None:
-    """Porównuje baseline z modelem AI."""
 
     print("AI Helpdesk Ticket Assistant")
 

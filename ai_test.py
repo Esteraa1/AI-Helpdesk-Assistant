@@ -6,8 +6,6 @@ MODEL_NAME = "facebook/bart-large-mnli"
 HUMAN_REVIEW_THRESHOLD = 0.60
 
 
-# Krótkie nazwy używane przez aplikację
-# są połączone z dokładniejszymi opisami dla modelu.
 CATEGORY_DESCRIPTIONS = {
     "login problem": (
         "a problem signing in, resetting a password, "
@@ -58,7 +56,6 @@ def find_short_label(
     descriptions: dict[str, str],
     selected_description: str,
 ) -> str:
-    """Zamienia długi opis modelu na krótką nazwę etykiety."""
 
     for short_label, description in descriptions.items():
         if description == selected_description:
@@ -68,7 +65,6 @@ def find_short_label(
 
 
 def classify_category(classifier, text: str) -> tuple[str, float]:
-    """Klasyfikuje kategorię zgłoszenia za pomocą modelu AI."""
 
     category_candidates = list(CATEGORY_DESCRIPTIONS.values())
 
@@ -93,7 +89,6 @@ def classify_category(classifier, text: str) -> tuple[str, float]:
 
 
 def classify_priority(classifier, text: str) -> tuple[str, float]:
-    """Klasyfikuje priorytet zgłoszenia za pomocą modelu AI."""
 
     priority_candidates = list(PRIORITY_DESCRIPTIONS.values())
 
@@ -121,7 +116,6 @@ def requires_human_review(
     category_confidence: float,
     priority_confidence: float,
 ) -> bool:
-    """Sprawdza, czy wynik wymaga ręcznej weryfikacji."""
 
     category_is_uncertain = (
         category_confidence < HUMAN_REVIEW_THRESHOLD
@@ -135,7 +129,6 @@ def requires_human_review(
 
 
 def main() -> None:
-    """Testuje analizę zgłoszenia za pomocą modelu zero-shot."""
 
     print("Loading AI model...")
 

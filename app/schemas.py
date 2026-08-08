@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class TicketRequest(BaseModel):
-    """Opisuje dane wysyłane do analizy zgłoszenia."""
 
     text: str = Field(
         min_length=1,
@@ -16,7 +15,6 @@ class TicketRequest(BaseModel):
     @field_validator("text")
     @classmethod
     def validate_text(cls, text: str) -> str:
-        """Usuwa spacje i odrzuca pustą treść zgłoszenia."""
 
         cleaned_text = text.strip()
 
@@ -29,7 +27,6 @@ class TicketRequest(BaseModel):
 
 
 class TicketResponse(BaseModel):
-    """Opisuje wynik analizy zgłoszenia."""
 
     category: str
 
@@ -51,7 +48,6 @@ class TicketResponse(BaseModel):
 
 
 class StoredTicketResponse(BaseModel):
-    """Opisuje zgłoszenie zapisane w bazie danych."""
 
     id: int
     ticket_text: str
