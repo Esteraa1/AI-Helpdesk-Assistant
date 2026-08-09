@@ -1,0 +1,31 @@
+text,expected_category,expected_priority
+I cannot reset my password and cannot access my account.,login problem,medium priority
+My account is locked and I cannot sign in.,login problem,medium priority
+The password reset link does not work.,login problem,medium priority
+I have an important meeting in one hour and cannot log in.,login problem,high priority
+All employees are unable to log in to the company accounts.,login problem,critical priority
+The application crashes every time I open it.,software issue,medium priority
+I get an error message when starting the program.,software issue,medium priority
+How do I change the language in the application?,software issue,low priority
+The production software is down for the entire company.,software issue,critical priority
+The application stopped working and I cannot work.,software issue,high priority
+My monitor does not turn on.,hardware issue,medium priority
+My keyboard stopped working.,hardware issue,medium priority
+My laptop will not power on and I cannot work.,hardware issue,high priority
+How do I connect a second monitor?,hardware issue,low priority
+All computers in the office suddenly stopped working.,hardware issue,critical priority
+The office Wi-Fi keeps disconnecting.,network issue,high priority
+I cannot connect to the VPN.,network issue,medium priority
+How do I connect to the company Wi-Fi?,network issue,low priority
+The entire company has lost internet access.,network issue,critical priority
+My internet connection is very slow but I can still work.,network issue,medium priority
+I was charged twice for the same invoice.,billing issue,medium priority
+I need a copy of my latest invoice.,billing issue,low priority
+The payment failed when I tried to pay the invoice.,billing issue,medium priority
+There is an urgent incorrect charge on our company account.,billing issue,high priority
+All customers are being charged incorrectly.,billing issue,critical priority
+Where can I find the employee handbook?,other,low priority
+I have a general question about office opening hours.,other,low priority
+The coffee machine on the third floor is empty.,other,medium priority
+I need information about booking a meeting room.,other,low priority
+There is an urgent issue but I am not sure which department handles it.,other,high priority
