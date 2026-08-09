@@ -78,18 +78,22 @@ CATEGORY_DESCRIPTIONS = {
 
 PRIORITY_DESCRIPTIONS = {
     "low priority": (
-        "a minor issue or general question that can wait"
+        "a general question, information request, or minor issue "
+        "that does not prevent the user from working"
     ),
     "medium priority": (
-        "an issue affecting one user without an urgent deadline"
+        "a normal technical problem affecting one user, "
+        "with no stated urgency, deadline, or major business impact"
     ),
     "high priority": (
-        "an urgent issue preventing work, affecting multiple users, "
-        "or connected with an important deadline"
+        "an explicitly urgent problem, a problem preventing work, "
+        "a problem with an important deadline, or an issue affecting "
+        "several users but not the whole organization"
     ),
     "critical priority": (
-        "a severe outage, security incident, data loss, "
-        "or production system failure affecting the whole organization"
+        "a company-wide or organization-wide outage, "
+        "a severe production failure, major security incident, "
+        "or data loss affecting the entire organization"
     ),
 }
 
