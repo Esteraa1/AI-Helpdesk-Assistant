@@ -1,7 +1,9 @@
 import csv
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 from sklearn.metrics import (
+    ConfusionMatrixDisplay,
     classification_report,
     confusion_matrix,
 )
@@ -76,6 +78,33 @@ def print_errors(
                 f"{error['confidence']:.4f}",
             )
 
+def save_confusion_matrix(
+    expected: list[str],
+    predicted: list[str],
+    labels: list[str],
+    title: str,
+    file_path: str,
+) -> None:
+
+    matrix = confusion_matrix(
+        expected,
+        predicted,
+        labels=labels,
+    )
+
+    display = ConfusionMatrixDisplay(
+        confusion_matrix=matrix,
+        display_labels=labels,
+    )
+
+    display.plot(
+        xticks_rotation=45,
+    )
+
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(file_path)
+    plt.close()
 
 def main() -> None:
 
@@ -309,6 +338,24 @@ def main() -> None:
             labels=PRIORITY_LABELS,
         )
     )
+
+    save_confusion_matrix(
+        ai_category_expected,
+        ai_category_predicted,
+        CATEGORY_LABELS,
+        "AI Category Confusion Matrix",
+        "screenshots/category_confusion_matrix.png",
+    )
+
+    save_confusion_matrix(
+        ai_priority_expected,
+        ai_priority_predicted,
+        PRIORITY_LABELS,
+        "AI Priority Confusion Matrix",
+        "screenshots/priority_confusion_matrix.png",
+    )
+
+    print("\nConfusion matrix images saved in screenshots/")
 
 
 if __name__ == "__main__":
