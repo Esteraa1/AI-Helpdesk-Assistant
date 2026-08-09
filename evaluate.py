@@ -1,6 +1,11 @@
 import csv
 from pathlib import Path
 
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+)
+
 from app.classifier import (
     detect_category_baseline,
     detect_category_with_ai,
@@ -11,6 +16,24 @@ from app.classifier import (
 
 
 DATA_PATH = Path("data/evaluation_tickets.csv")
+
+
+CATEGORY_LABELS = [
+    "login problem",
+    "software issue",
+    "hardware issue",
+    "network issue",
+    "billing issue",
+    "other",
+]
+
+
+PRIORITY_LABELS = [
+    "low priority",
+    "medium priority",
+    "high priority",
+    "critical priority",
+]
 
 
 def calculate_accuracy(
@@ -85,6 +108,12 @@ def main() -> None:
     ai_category_errors = []
     ai_priority_errors = []
 
+    ai_category_expected = []
+    ai_category_predicted = []
+
+    ai_priority_expected = []
+    ai_priority_predicted = []
+
     for index, ticket in enumerate(tickets, start=1):
         text = ticket["text"]
 
@@ -107,6 +136,12 @@ def main() -> None:
                 text,
             )
         )
+
+        ai_category_expected.append(expected_category)
+        ai_category_predicted.append(ai_category)
+
+        ai_priority_expected.append(expected_priority)
+        ai_priority_predicted.append(ai_priority)
 
         if baseline_category == expected_category:
             baseline_category_correct += 1
@@ -184,20 +219,24 @@ def main() -> None:
     print("\nEvaluation results:")
 
     print("\nBaseline:")
+
     print(
         "Category accuracy:",
         f"{baseline_category_accuracy:.2%}",
     )
+
     print(
         "Priority accuracy:",
         f"{baseline_priority_accuracy:.2%}",
     )
 
     print("\nAI model:")
+
     print(
         "Category accuracy:",
         f"{ai_category_accuracy:.2%}",
     )
+
     print(
         "Priority accuracy:",
         f"{ai_priority_accuracy:.2%}",
@@ -221,6 +260,54 @@ def main() -> None:
     print_errors(
         "AI priority errors",
         ai_priority_errors,
+    )
+
+    print("\nAI category classification report:")
+
+    print(
+        classification_report(
+            ai_category_expected,
+            ai_category_predicted,
+            labels=CATEGORY_LABELS,
+            zero_division=0,
+        )
+    )
+
+    print("\nAI priority classification report:")
+
+    print(
+        classification_report(
+            ai_priority_expected,
+            ai_priority_predicted,
+            labels=PRIORITY_LABELS,
+            zero_division=0,
+        )
+    )
+
+    print("\nAI category confusion matrix:")
+
+    print("Label order:")
+    print(CATEGORY_LABELS)
+
+    print(
+        confusion_matrix(
+            ai_category_expected,
+            ai_category_predicted,
+            labels=CATEGORY_LABELS,
+        )
+    )
+
+    print("\nAI priority confusion matrix:")
+
+    print("Label order:")
+    print(PRIORITY_LABELS)
+
+    print(
+        confusion_matrix(
+            ai_priority_expected,
+            ai_priority_predicted,
+            labels=PRIORITY_LABELS,
+        )
     )
 
 
